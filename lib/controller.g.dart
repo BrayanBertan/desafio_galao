@@ -24,6 +24,22 @@ mixin _$GalaoController on _GalaoController, Store {
     });
   }
 
+  final _$galaoVolumeAtualAtom =
+      Atom(name: '_GalaoController.galaoVolumeAtual');
+
+  @override
+  double get galaoVolumeAtual {
+    _$galaoVolumeAtualAtom.reportRead();
+    return super.galaoVolumeAtual;
+  }
+
+  @override
+  set galaoVolumeAtual(double value) {
+    _$galaoVolumeAtualAtom.reportWrite(value, super.galaoVolumeAtual, () {
+      super.galaoVolumeAtual = value;
+    });
+  }
+
   final _$listaTodosAtom = Atom(name: '_GalaoController.listaTodos');
 
   @override
@@ -84,9 +100,21 @@ mixin _$GalaoController on _GalaoController, Store {
   }
 
   @override
+  void calcularCopos() {
+    final _$actionInfo = _$_GalaoControllerActionController.startAction(
+        name: '_GalaoController.calcularCopos');
+    try {
+      return super.calcularCopos();
+    } finally {
+      _$_GalaoControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 galao: ${galao},
+galaoVolumeAtual: ${galaoVolumeAtual},
 listaTodos: ${listaTodos},
 listaCorretos: ${listaCorretos},
 listaIncorretos: ${listaIncorretos}

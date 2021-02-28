@@ -1,5 +1,10 @@
+import 'package:desafio_galao/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
+
+final controller = GalaoController();
 
 void main() {
   runApp(DesafioGalaoApp());
@@ -46,43 +51,42 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.5,
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    Center(
-                      child: Text('Corretos'),
-                    ),
-                    Container(
-                      alignment: Alignment.bottomCenter,
-                      padding: EdgeInsets.zero,
-                      margin: EdgeInsets.only(bottom: 5.0),
-                      width: 80.0,
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                            bottom: BorderSide(
-                                color: Colors.greenAccent, width: 3.0),
-                            right: BorderSide(
-                                color: Colors.greenAccent, width: 3.0),
-                            left: BorderSide(
-                                color: Colors.greenAccent, width: 3.0),
-                          )),
-                      child: Container(
-                        margin: EdgeInsets.zero,
+                child: Observer(builder: (_) {
+                  return  ListView(
+                    padding: EdgeInsets.zero,
+                    children: controller.listaCorretos.map((copo) {
+                      return  Container(
+                        alignment: Alignment.bottomCenter,
+                        padding: EdgeInsets.zero,
+                        margin: EdgeInsets.only(bottom: 5.0),
                         width: 80.0,
-                        height: 100.0,
-                        color: color,
-                        child: Center(
-                          child: Text(
-                            '2.5L',
-                            style: TextStyle(color: Colors.white),
+                        height: 120.0,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border(
+                              bottom: BorderSide(
+                                  color: Colors.greenAccent, width: 3.0),
+                              right: BorderSide(
+                                  color: Colors.greenAccent, width: 3.0),
+                              left: BorderSide(
+                                  color: Colors.greenAccent, width: 3.0),
+                            )),
+                        child: Container(
+                          margin: EdgeInsets.zero,
+                          width: 80.0,
+                          height: 100.0,
+                          color: color,
+                          child: Center(
+                            child: Text(
+                              '${copo}',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
+                      );
+                    }).toList()
+                  );
+                }),
               ),
               Expanded(
                   child: Column(
@@ -104,10 +108,11 @@ class _HomePageState extends State<HomePage> {
                       height: MediaQuery.of(context).size.height * 0.4,
                       color: color,
                       child: Center(
-                        child: Text(
-                          '5.0L',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        child: Observer(
+                            builder: (_) => Text(
+                                  '${controller.galao}',
+                                  style: TextStyle(color: Colors.white),
+                                )),
                       ),
                     ),
                   )
@@ -118,43 +123,42 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.5,
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    Center(
-                      child: Text('Incorretos'),
-                    ),
-                    Container(
-                      alignment: Alignment.bottomCenter,
-                      padding: EdgeInsets.zero,
-                      margin: EdgeInsets.only(bottom: 5.0),
-                      width: 80.0,
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                            bottom:
-                                BorderSide(color: Colors.redAccent, width: 3.0),
-                            right:
-                                BorderSide(color: Colors.redAccent, width: 3.0),
-                            left:
-                                BorderSide(color: Colors.redAccent, width: 3.0),
-                          )),
-                      child: Container(
-                        margin: EdgeInsets.zero,
+                child: Observer(builder: (_) {
+                  return ListView(
+                    padding: EdgeInsets.zero,
+                    children: controller.listaIncorretos.map((copo) {
+                      return Container(
+                        alignment: Alignment.bottomCenter,
+                        padding: EdgeInsets.zero,
+                        margin: EdgeInsets.only(bottom: 5.0),
                         width: 80.0,
-                        height: 100.0,
-                        color: color,
-                        child: Center(
-                          child: Text(
-                            '1.5L',
-                            style: TextStyle(color: Colors.white),
+                        height: 120.0,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border(
+                              bottom: BorderSide(
+                                  color: Colors.redAccent, width: 3.0),
+                              right: BorderSide(
+                                  color: Colors.redAccent, width: 3.0),
+                              left: BorderSide(
+                                  color: Colors.redAccent, width: 3.0),
+                            )),
+                        child: Container(
+                          margin: EdgeInsets.zero,
+                          width: 80.0,
+                          height: 100.0,
+                          color: color,
+                          child: Center(
+                            child: Text(
+                              '$copo',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
+                      );
+                    }).toList(),
+                  );
+                }),
               )
             ],
           ),
@@ -163,83 +167,61 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.all(5.0),
             margin: EdgeInsets.all(15.0),
             height: 120.0,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                Center(
-                  child: Text('Todos'),
-                ),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.zero,
-                  margin: EdgeInsets.only(bottom: 5.0),
-                  width: 80.0,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                        bottom:
-                            BorderSide(color: Colors.yellowAccent, width: 3.0),
-                        right:
-                            BorderSide(color: Colors.yellowAccent, width: 3.0),
-                        left:
-                            BorderSide(color: Colors.yellowAccent, width: 3.0),
-                      )),
-                  child: Container(
-                    margin: EdgeInsets.zero,
-                    width: 80.0,
-                    height: 80.0,
-                    color: color,
-                    child: Center(
-                      child: Text(
-                        '1.5L',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
+            child: Observer(builder: (_) {
+              return ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.listaTodos.length,
+                separatorBuilder: (BuildContext context, int index) => SizedBox(
                   width: 5.0,
                 ),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.zero,
-                  margin: EdgeInsets.only(bottom: 5.0),
-                  width: 80.0,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                        bottom:
-                            BorderSide(color: Colors.yellowAccent, width: 3.0),
-                        right:
-                            BorderSide(color: Colors.yellowAccent, width: 3.0),
-                        left:
-                            BorderSide(color: Colors.yellowAccent, width: 3.0),
-                      )),
-                  child: Container(
-                    margin: EdgeInsets.zero,
-                    width: 80.0,
-                    height: 80.0,
-                    color: color,
-                    child: Center(
-                      child: Text(
-                        '1.5L',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                itemBuilder: (context, index) {
+                  return controller.listaTodos == null
+                      ? Container()
+                      : Container(
+                          alignment: Alignment.bottomCenter,
+                          padding: EdgeInsets.zero,
+                          margin: EdgeInsets.only(bottom: 5.0),
+                          width: 80.0,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border(
+                                bottom: BorderSide(
+                                    color: Colors.yellowAccent, width: 3.0),
+                                right: BorderSide(
+                                    color: Colors.yellowAccent, width: 3.0),
+                                left: BorderSide(
+                                    color: Colors.yellowAccent, width: 3.0),
+                              )),
+                          child: Container(
+                            margin: EdgeInsets.zero,
+                            width: 80.0,
+                            height: 80.0,
+                            color: color,
+                            child: Center(
+                              child: Text(
+                                '${controller.listaTodos[index]}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        );
+                },
+              );
+            }),
           ),
           Center(
-            child: Text('Sobra:'),
+            child: Observer(builder: (_) {
+              return  Text('Sobra: ${(controller.galaoVolumeAtual).toStringAsFixed(2)}');
+            }),
           ),
           Container(
             margin: EdgeInsets.all(15.0),
             height: 50.0,
             child: RaisedButton(
               color: color,
-              onPressed: () {},
+              onPressed: () {
+                controller.gerarTeste();
+              },
               child: Text(
                 'Gerar teste',
                 style: TextStyle(color: Colors.white),

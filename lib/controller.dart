@@ -10,6 +10,9 @@ abstract class _GalaoController with Store {
   double galao = 0;
 
   @observable
+  double galaoVolumeAtual = 0;
+
+  @observable
   ObservableList listaTodos = List().asObservable();
 
   @observable
@@ -39,25 +42,43 @@ abstract class _GalaoController with Store {
     for (int i = 0; i < quantidadeCopos; i++) {
       listaTodos.add(gerarCopo(random, quantidadeCopos, galao));
     }
+
+    listaTodos.sort((a, b) {
+      if (a > b) {
+        return -1;
+      } else if (a < b) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    calcularCopos();
   }
 
   double gerarCopo(Random random, int quantidadeCopos, double galao) {
     int minValorCopo = (galao / quantidadeCopos).round();
     double copo = double.parse(
-        (random.nextDouble() * (galao - minValorCopo) + minValorCopo)
+        (random.nextDouble() * (minValorCopo * 3 - minValorCopo) + minValorCopo)
             .toStringAsFixed(2));
 
     return copo;
   }
 
+  @action
   void calcularCopos() {
-    double galaoVolumeAtual = galao;
+    galaoVolumeAtual = galao;
     listaTodos.forEach((copo) {
-      if (copo <= galaoVolumeAtual) {
-        listaCorretos.add(copo);
-        galaoVolumeAtual -= copo;
-      } else
+      if (galaoVolumeAtual > 0) {
+        if(galaoVolumeAtual - copo < 0 && copo != listaTodos.last) {
+          listaIncorretos.add(copo);
+        }else{
+          listaCorretos.add(copo);
+          galaoVolumeAtual -= copo;
+        }
+      } else {
         listaIncorretos.add(copo);
+      }
     });
   }
 }
