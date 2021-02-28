@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 margin: EdgeInsets.all(5.0),
                 color: Colors.white,
-                width: MediaQuery.of(context).size.width * 0.3,
+                width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Observer(builder: (_) {
                   return ListView(
@@ -70,39 +70,31 @@ class _HomePageState extends State<HomePage> {
                 }),
               ),
               Expanded(
-                  child: Column(
-                children: [
-                  Text('Galão'),
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black, width: 3.0),
-                          right: BorderSide(color: Colors.black, width: 3.0),
-                          left: BorderSide(color: Colors.black, width: 3.0),
-                        )),
-                    child: Container(
-                      margin: EdgeInsets.zero,
-                      width: 80.0,
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      color: color,
-                      child: Center(
-                        child: Observer(
-                            builder: (_) => Text(
-                                  '${controller.galao}',
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                      ),
-                    ),
-                  )
-                ],
+                  child: Container(
+                height: MediaQuery.of(context).size.height * 0.5,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      bottom: BorderSide(color: Colors.black, width: 3.0),
+                      right: BorderSide(color: Colors.black, width: 3.0),
+                      left: BorderSide(color: Colors.black, width: 3.0),
+                    )),
+                child: Container(
+                  margin: EdgeInsets.only(top: 50.0),
+                  color: color,
+                  child: Center(
+                    child: Observer(
+                        builder: (_) => Text(
+                              '${controller.galao}',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                  ),
+                ),
               )),
               Container(
                 margin: EdgeInsets.all(5.0),
                 color: Colors.white,
-                width: MediaQuery.of(context).size.width * 0.3,
+                width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Observer(builder: (_) {
                   return ListView(
@@ -153,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 itemCount: controller.listaTodos.length,
                 separatorBuilder: (BuildContext context, int index) => SizedBox(
-                  width: 5.0,
+                  width: 15.0,
                 ),
                 itemBuilder: (context, index) {
                   return controller.listaTodos == null
