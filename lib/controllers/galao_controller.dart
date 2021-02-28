@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:mobx/mobx.dart';
-part 'controller.g.dart';
+part 'galao_controller.g.dart';
 
 class GalaoController = _GalaoController with _$GalaoController;
 
@@ -42,17 +42,6 @@ abstract class _GalaoController with Store {
     for (int i = 0; i < quantidadeCopos; i++) {
       listaTodos.add(gerarCopo(random, quantidadeCopos, galao));
     }
-
-    listaTodos.sort((a, b) {
-      if (a > b) {
-        return -1;
-      } else if (a < b) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-
     calcularCopos();
   }
 
@@ -67,15 +56,27 @@ abstract class _GalaoController with Store {
 
   @action
   void calcularCopos() {
-    galaoVolumeAtual = galao;
+    List<double> listaTodosCopia = List();
+
     listaTodos.forEach((copo) {
-      if (galaoVolumeAtual > 0) {
-        if(galaoVolumeAtual - copo < 0 && copo != listaTodos.last) {
-          listaIncorretos.add(copo);
-        }else{
-          listaCorretos.add(copo);
-          galaoVolumeAtual -= copo;
-        }
+      listaTodosCopia.add(copo);
+    });
+
+    listaTodosCopia.sort((a, b) {
+      if (a > b) {
+        return -1;
+      } else if (a < b) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    galaoVolumeAtual = galao;
+
+    listaTodosCopia.forEach((copo) {
+      if (copo <= galaoVolumeAtual) {
+        listaCorretos.add(copo);
+        galaoVolumeAtual -= copo;
       } else {
         listaIncorretos.add(copo);
       }

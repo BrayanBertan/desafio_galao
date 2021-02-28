@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'controller.dart';
+part of 'galao_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
