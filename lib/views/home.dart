@@ -73,10 +73,10 @@ class _HomePageState extends State<HomePage> {
                 height: MediaQuery.of(context).size.height * 0.5,
                 decoration: BoxDecoration(
                     border: Border(
-                      bottom: BorderSide(color: Colors.black, width: 3.0),
-                      right: BorderSide(color: Colors.black, width: 3.0),
-                      left: BorderSide(color: Colors.black, width: 3.0),
-                    )),
+                  bottom: BorderSide(color: Colors.black, width: 3.0),
+                  right: BorderSide(color: Colors.black, width: 3.0),
+                  left: BorderSide(color: Colors.black, width: 3.0),
+                )),
                 child: Container(
                   margin: EdgeInsets.only(top: 50.0),
                   color: color,
@@ -153,13 +153,13 @@ class _HomePageState extends State<HomePage> {
                           width: 80.0,
                           decoration: BoxDecoration(
                               border: Border(
-                                bottom: BorderSide(
-                                    color: Colors.yellowAccent, width: 3.0),
-                                right: BorderSide(
-                                    color: Colors.yellowAccent, width: 3.0),
-                                left: BorderSide(
-                                    color: Colors.yellowAccent, width: 3.0),
-                              )),
+                            bottom: BorderSide(
+                                color: Colors.yellowAccent, width: 3.0),
+                            right: BorderSide(
+                                color: Colors.yellowAccent, width: 3.0),
+                            left: BorderSide(
+                                color: Colors.yellowAccent, width: 3.0),
+                          )),
                           child: Container(
                             margin: EdgeInsets.zero,
                             width: 80.0,
@@ -177,11 +177,17 @@ class _HomePageState extends State<HomePage> {
               );
             }),
           ),
-          Center(
-            child: Observer(builder: (_) {
-              return Text(
-                  'Sobra: ${(controller.galaoVolumeAtual).toStringAsFixed(2)}');
-            }),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              buildLegenda(Colors.yellowAccent, 'Todos'),
+              buildLegenda(Colors.greenAccent, 'Resposta'),
+              buildLegenda(Colors.redAccent, 'Resto'),
+              Observer(builder: (_) {
+                return Text(
+                    'Sobra: ${(controller.galaoVolumeAtual).toStringAsFixed(2)}');
+              }),
+            ],
           ),
           Container(
             margin: EdgeInsets.all(15.0),
@@ -196,8 +202,22 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-          )
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget buildLegenda(Color cor, String texto) {
+    return Container(
+      width: 80.0,
+      height: 50.0,
+      color: cor,
+      child: Center(
+        child: Text(
+          texto,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
