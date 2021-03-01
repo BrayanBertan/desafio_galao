@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
             children: [
               Container(
                 margin: EdgeInsets.all(5.0),
-                color: Colors.white,
                 width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Observer(builder: (_) {
@@ -73,7 +72,6 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                 height: MediaQuery.of(context).size.height * 0.5,
                 decoration: BoxDecoration(
-                    color: Colors.white,
                     border: Border(
                       bottom: BorderSide(color: Colors.black, width: 3.0),
                       right: BorderSide(color: Colors.black, width: 3.0),
@@ -93,7 +91,6 @@ class _HomePageState extends State<HomePage> {
               )),
               Container(
                 margin: EdgeInsets.all(5.0),
-                color: Colors.white,
                 width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Observer(builder: (_) {
@@ -136,7 +133,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           Container(
-            color: Colors.white,
             padding: EdgeInsets.all(5.0),
             margin: EdgeInsets.all(15.0),
             height: 120.0,
@@ -156,7 +152,6 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.only(bottom: 5.0),
                           width: 80.0,
                           decoration: BoxDecoration(
-                              color: Colors.white,
                               border: Border(
                                 bottom: BorderSide(
                                     color: Colors.yellowAccent, width: 3.0),
