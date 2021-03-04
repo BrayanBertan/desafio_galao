@@ -1,7 +1,7 @@
 import 'package:desafio_galao/controllers/galao_controller.dart';
 import 'package:desafio_galao/widgets/inputRow.dart';
 import 'package:desafio_galao/widgets/galao.dart';
-import 'package:desafio_galao/widgets/lista_copos.dart';
+import 'package:desafio_galao/widgets/lista_garrafas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -35,9 +35,9 @@ class _HomePageState extends State<HomePage> {
               height: 15.0,
             ),
             InputRowWidget(
-                'copo_cheio.png', 'Adicionar', 'Insira o valor para o copo',color),
+                'garrafa_cheia.png', 'Adicionar', 'Insira o valor para a garrafa',color),
             GalaoWidget(controller),
-            ListaCopos(controller, color, 'copo_cheio.png', 'Copos'),
+            ListaGarrafas(controller, color, 'garrafa_cheia.png', 'Garrafas'),
             Container(
               margin: EdgeInsets.all(15.0),
               height: 50.0,
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            ListaCopos(controller, color, 'copo_vazio.png', 'Resposta'),
+            ListaGarrafas(controller, color, 'garrafa_vazia.png', 'Resposta'),
           ],
         ),
       ),

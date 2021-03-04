@@ -3,25 +3,25 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../controllers/galao_controller.dart';
 
-class ListaCopos extends StatefulWidget {
+class ListaGarrafas extends StatefulWidget {
   GalaoController controller;
   Color color;
   String foto;
   String legenda;
 
-  ListaCopos(this.controller, this.color, this.foto, this.legenda);
+  ListaGarrafas(this.controller, this.color, this.foto, this.legenda);
   @override
-  _ListaCoposState createState() =>
-      _ListaCoposState(controller, color, foto, legenda);
+  _ListaGarrafasState createState() =>
+      _ListaGarrafasState(controller, color, foto, legenda);
 }
 
-class _ListaCoposState extends State<ListaCopos> {
+class _ListaGarrafasState extends State<ListaGarrafas> {
   GalaoController controller;
   Color color;
   String foto;
   String legenda;
 
-  _ListaCoposState(this.controller, this.color, this.foto, this.legenda);
+  _ListaGarrafasState(this.controller, this.color, this.foto, this.legenda);
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
