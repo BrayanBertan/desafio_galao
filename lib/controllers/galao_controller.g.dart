@@ -70,41 +70,37 @@ mixin _$GalaoController on _GalaoController, Store {
     });
   }
 
-  final _$listaIncorretosAtom = Atom(name: '_GalaoController.listaIncorretos');
-
-  @override
-  ObservableList<dynamic> get listaIncorretos {
-    _$listaIncorretosAtom.reportRead();
-    return super.listaIncorretos;
-  }
-
-  @override
-  set listaIncorretos(ObservableList<dynamic> value) {
-    _$listaIncorretosAtom.reportWrite(value, super.listaIncorretos, () {
-      super.listaIncorretos = value;
-    });
-  }
-
   final _$_GalaoControllerActionController =
       ActionController(name: '_GalaoController');
 
   @override
-  void gerarTeste() {
+  void setGalao() {
     final _$actionInfo = _$_GalaoControllerActionController.startAction(
-        name: '_GalaoController.gerarTeste');
+        name: '_GalaoController.setGalao');
     try {
-      return super.gerarTeste();
+      return super.setGalao();
     } finally {
       _$_GalaoControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void calcularCopos() {
+  void createGarrafa() {
     final _$actionInfo = _$_GalaoControllerActionController.startAction(
-        name: '_GalaoController.calcularCopos');
+        name: '_GalaoController.createGarrafa');
     try {
-      return super.calcularCopos();
+      return super.createGarrafa();
+    } finally {
+      _$_GalaoControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void calcular() {
+    final _$actionInfo = _$_GalaoControllerActionController.startAction(
+        name: '_GalaoController.calcular');
+    try {
+      return super.calcular();
     } finally {
       _$_GalaoControllerActionController.endAction(_$actionInfo);
     }
@@ -116,8 +112,7 @@ mixin _$GalaoController on _GalaoController, Store {
 galao: ${galao},
 galaoVolumeAtual: ${galaoVolumeAtual},
 listaTodos: ${listaTodos},
-listaCorretos: ${listaCorretos},
-listaIncorretos: ${listaIncorretos}
+listaCorretos: ${listaCorretos}
     ''';
   }
 }

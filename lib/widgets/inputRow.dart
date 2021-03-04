@@ -5,11 +5,14 @@ class InputRowWidget extends StatefulWidget {
   String buttonText;
   String fieldText;
   Color color;
+  Function funcao;
+  TextEditingController inputController;
 
-  InputRowWidget(this.icon, this.buttonText, this.fieldText, this.color);
+  InputRowWidget(this.icon, this.buttonText, this.fieldText, this.color,
+      this.funcao, this.inputController);
   @override
-  _InputRowWidgetState createState() =>
-      _InputRowWidgetState(icon, buttonText, fieldText, color);
+  _InputRowWidgetState createState() => _InputRowWidgetState(
+      icon, buttonText, fieldText, color, funcao, inputController);
 }
 
 class _InputRowWidgetState extends State<InputRowWidget> {
@@ -17,14 +20,20 @@ class _InputRowWidgetState extends State<InputRowWidget> {
   String buttonText;
   String fieldText;
   Color color;
+  Function funcao;
+  TextEditingController inputController;
 
-  _InputRowWidgetState(this.icon, this.buttonText, this.fieldText, this.color);
+
+
+  _InputRowWidgetState(this.icon, this.buttonText, this.fieldText, this.color,
+      this.funcao, this.inputController);
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
             child: TextField(
+          controller: inputController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             prefixIcon: Image.asset(
@@ -42,7 +51,9 @@ class _InputRowWidgetState extends State<InputRowWidget> {
         SizedBox(
           height: 50.0,
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                funcao();
+              },
               style: ElevatedButton.styleFrom(
                 primary: color, // background
                 onPrimary: Colors.white, // foreground

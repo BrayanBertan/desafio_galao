@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 import '../controllers/galao_controller.dart';
 
@@ -8,11 +9,13 @@ class ListaGarrafas extends StatefulWidget {
   Color color;
   String foto;
   String legenda;
+  ObservableList<dynamic> lista;
 
-  ListaGarrafas(this.controller, this.color, this.foto, this.legenda);
+  ListaGarrafas(
+      this.controller, this.color, this.foto, this.legenda, this.lista);
   @override
   _ListaGarrafasState createState() =>
-      _ListaGarrafasState(controller, color, foto, legenda);
+      _ListaGarrafasState(controller, color, foto, legenda, lista);
 }
 
 class _ListaGarrafasState extends State<ListaGarrafas> {
@@ -20,8 +23,11 @@ class _ListaGarrafasState extends State<ListaGarrafas> {
   Color color;
   String foto;
   String legenda;
+  ObservableList<dynamic> lista;
 
-  _ListaGarrafasState(this.controller, this.color, this.foto, this.legenda);
+  _ListaGarrafasState(
+      this.controller, this.color, this.foto, this.legenda, this.lista);
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -43,7 +49,7 @@ class _ListaGarrafasState extends State<ListaGarrafas> {
             ],
           )),
           Row(
-            children: controller.listaTodos.map((copo) {
+            children: lista.map((copo) {
               return Stack(
                 alignment: Alignment.center,
                 children: [
@@ -54,7 +60,7 @@ class _ListaGarrafasState extends State<ListaGarrafas> {
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
                   )),
-                  if (legenda.toUpperCase() == 'COPOS')
+                  if (legenda.toUpperCase() == 'GARRAFAS')
                     Container(
                       alignment: Alignment.topCenter,
                       child: IconButton(

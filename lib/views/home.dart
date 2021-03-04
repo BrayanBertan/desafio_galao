@@ -30,29 +30,34 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            InputRowWidget('galao.png', 'Salvar', 'Digite o valor do galão',color),
+            InputRowWidget(
+                'galao.png', 'Salvar', 'Digite o valor do galão', color, () {
+              controller.setGalao();
+            }, controller.galaoController),
             SizedBox(
               height: 15.0,
             ),
-            InputRowWidget(
-                'garrafa_cheia.png', 'Adicionar', 'Insira o valor para a garrafa',color),
+            InputRowWidget('garrafa_cheia.png', 'Adicionar',
+                'Insira o valor para a garrafa', color, () {
+              controller.createGarrafa();
+            }, controller.garrafaController),
             GalaoWidget(controller),
-            ListaGarrafas(controller, color, 'garrafa_cheia.png', 'Garrafas'),
+            ListaGarrafas(controller, color, 'garrafa_cheia.png', 'Garrafas',controller.listaTodos),
             Container(
               margin: EdgeInsets.all(15.0),
               height: 50.0,
               child: RaisedButton(
                 color: color,
                 onPressed: () {
-                  controller.gerarTeste();
+                  controller.calcular();
                 },
                 child: Text(
-                  'Gerar teste',
+                  'Calcular',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
-            ListaGarrafas(controller, color, 'garrafa_vazia.png', 'Resposta'),
+            ListaGarrafas(controller, color, 'garrafa_vazia.png', 'Resposta',controller.listaCorretos),
           ],
         ),
       ),

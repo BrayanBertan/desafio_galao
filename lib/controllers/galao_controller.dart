@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 part 'galao_controller.g.dart';
 
@@ -18,48 +19,27 @@ abstract class _GalaoController with Store {
   @observable
   ObservableList listaCorretos = List().asObservable();
 
-  @observable
-  ObservableList listaIncorretos = List().asObservable();
+  final galaoController = TextEditingController();
+  final garrafaController = TextEditingController();
 
   @action
-  void gerarTeste() {
-    listaTodos.clear();
-    listaCorretos.clear();
-    listaIncorretos.clear();
-    Random random = new Random();
-    double minGalao = 5.0, maxGalao = 10.0;
-
-    int minQuantidadeCopos = 3, maxQuantidadeCopos = 8;
-
-    int quantidadeCopos =
-        random.nextInt(maxQuantidadeCopos - minQuantidadeCopos) +
-            minQuantidadeCopos;
-
-    galao = double.parse(
-        (random.nextDouble() * (maxGalao - minGalao) + minGalao)
-            .toStringAsFixed(2));
-
-    for (int i = 0; i < quantidadeCopos; i++) {
-      listaTodos.add(gerarCopo(random, quantidadeCopos, galao));
-    }
-    calcularCopos();
-  }
-
-  double gerarCopo(Random random, int quantidadeCopos, double galao) {
-    int minValorCopo = (galao / quantidadeCopos).round();
-    double copo = double.parse(
-        (random.nextDouble() * (minValorCopo * 3 - minValorCopo) + minValorCopo)
-            .toStringAsFixed(2));
-
-    return copo;
+  void setGalao() {
+    galao = double.parse(galaoController.text.replaceAll(',', '.'));
+    galaoController.text = '';
   }
 
   @action
-  void calcularCopos() {
+  void createGarrafa() {
+    listaTodos.add(double.parse(garrafaController.text));
+    garrafaController.text = '';
+  }
+
+  @action
+  void calcular() {
     List<double> listaTodosCopia = List();
 
-    listaTodos.forEach((copo) {
-      listaTodosCopia.add(copo);
+    listaTodos.forEach((garrafa) {
+      listaTodosCopia.add(garrafa);
     });
 
     listaTodosCopia.sort((a, b) {
@@ -73,12 +53,10 @@ abstract class _GalaoController with Store {
     });
     galaoVolumeAtual = galao;
 
-    listaTodosCopia.forEach((copo) {
-      if (copo <= galaoVolumeAtual) {
-        listaCorretos.add(copo);
-        galaoVolumeAtual -= copo;
-      } else {
-        listaIncorretos.add(copo);
+    listaTodosCopia.forEach((garrafa) {
+      if (garrafa <= galaoVolumeAtual) {
+        listaCorretos.add(garrafa);
+        galaoVolumeAtual -= garrafa;
       }
     });
   }
