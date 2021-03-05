@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputRowWidget extends StatefulWidget {
   String icon;
@@ -33,7 +34,11 @@ class _InputRowWidgetState extends State<InputRowWidget> {
       children: [
         Expanded(
             child: TextField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'[,]')),
+              ],
           controller: inputController,
+          keyboardType: TextInputType.number,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             prefixIcon: Image.asset(
