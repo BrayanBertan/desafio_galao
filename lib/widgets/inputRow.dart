@@ -46,7 +46,6 @@ class _InputRowWidgetState extends State<InputRowWidget> {
     return Observer(builder: (_) {
       return Row(
         children: [
-          Text('${controller.galao}  ${controller.listaTodos.length}'),
           Expanded(
               child: TextFormField(
             onChanged: (value) {
