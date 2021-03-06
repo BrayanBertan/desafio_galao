@@ -19,8 +19,17 @@ abstract class _GalaoController with Store {
   @observable
   ObservableList listaCorretos = List().asObservable();
 
+  @observable
+  bool buttonState = false;
+
   final galaoController = TextEditingController();
   final garrafaController = TextEditingController();
+
+
+  @action
+  void setButtonState() {
+   buttonState  = !buttonState;
+  }
 
   @action
   void setGalao() {

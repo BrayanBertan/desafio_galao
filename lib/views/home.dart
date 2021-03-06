@@ -1,4 +1,5 @@
 import 'package:desafio_galao/controllers/galao_controller.dart';
+import 'package:desafio_galao/validators/validator.dart';
 import 'package:desafio_galao/widgets/inputRow.dart';
 import 'package:desafio_galao/widgets/galao.dart';
 import 'package:desafio_galao/widgets/lista_garrafas.dart';
@@ -13,7 +14,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with Validator {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).primaryColor;
@@ -30,26 +32,50 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            InputRowWidget(
-                'galao.png', 'Salvar', 'Digite o valor do galão', color, () {
-              controller.setGalao();
-            }, controller.galaoController),
+            Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    InputRowWidget(
+                        icon: 'galao.png',
+                        buttonText: 'Salvar',
+                        fieldText: 'Digite o valor do galão',
+                        color: color,
+                        funcao: () {
+                          controller.setGalao();
+                        },
+                        controller: controller,
+                        validate: validateGalao),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    InputRowWidget(
+                        icon: 'garrafa_cheia.png',
+                        buttonText: 'Adicionar',
+                        fieldText: 'Insira um valor para a garrafa',
+                        color: color,
+                        funcao: () {
+                          controller.createGarrafa();
+                        },
+                        controller: controller,
+                        validate: validateGarrafas),
+                  ],
+                )),
             SizedBox(
               height: 15.0,
             ),
-            InputRowWidget('garrafa_cheia.png', 'Adicionar',
-                'Insira o valor para a garrafa', color, () {
-              controller.createGarrafa();
-            }, controller.garrafaController),
             GalaoWidget(controller),
-            ListaGarrafas(controller, color, 'garrafa_cheia.png', 'Garrafas',controller.listaTodos),
+            ListaGarrafas(controller, color, 'garrafa_cheia.png', 'Garrafas',
+                controller.listaTodos),
             Container(
               margin: EdgeInsets.all(15.0),
               height: 50.0,
               child: RaisedButton(
                 color: color,
                 onPressed: () {
-                  controller.calcular();
+                  if (_formKey.currentState.validate()) {
+                    controller.calcular();
+                  }
                 },
                 child: Text(
                   'Calcular',
@@ -57,7 +83,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            ListaGarrafas(controller, color, 'garrafa_vazia.png', 'Resposta',controller.listaCorretos),
+            ListaGarrafas(controller, color, 'garrafa_vazia.png', 'Resposta',
+                controller.listaCorretos),
           ],
         ),
       ),

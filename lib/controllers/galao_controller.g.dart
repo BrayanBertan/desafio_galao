@@ -70,8 +70,34 @@ mixin _$GalaoController on _GalaoController, Store {
     });
   }
 
+  final _$buttonStateAtom = Atom(name: '_GalaoController.buttonState');
+
+  @override
+  bool get buttonState {
+    _$buttonStateAtom.reportRead();
+    return super.buttonState;
+  }
+
+  @override
+  set buttonState(bool value) {
+    _$buttonStateAtom.reportWrite(value, super.buttonState, () {
+      super.buttonState = value;
+    });
+  }
+
   final _$_GalaoControllerActionController =
       ActionController(name: '_GalaoController');
+
+  @override
+  void setButtonState() {
+    final _$actionInfo = _$_GalaoControllerActionController.startAction(
+        name: '_GalaoController.setButtonState');
+    try {
+      return super.setButtonState();
+    } finally {
+      _$_GalaoControllerActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void setGalao() {
@@ -112,7 +138,8 @@ mixin _$GalaoController on _GalaoController, Store {
 galao: ${galao},
 galaoVolumeAtual: ${galaoVolumeAtual},
 listaTodos: ${listaTodos},
-listaCorretos: ${listaCorretos}
+listaCorretos: ${listaCorretos},
+buttonState: ${buttonState}
     ''';
   }
 }
